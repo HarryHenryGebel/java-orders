@@ -1,6 +1,7 @@
 package tech.gebel.javaorders.models;
 
-import java.util.ArrayList;
+import org.pcollections.TreePVector;
+
 import java.util.List;
 import javax.persistence.*;
 
@@ -45,7 +46,7 @@ public class Customer {
     cascade = CascadeType.ALL,
     orphanRemoval = true
   )
-  private List<Order> orders = new ArrayList<>();
+  private List<Order> orders = TreePVector.empty();
 
   private String grade, phone;
 
