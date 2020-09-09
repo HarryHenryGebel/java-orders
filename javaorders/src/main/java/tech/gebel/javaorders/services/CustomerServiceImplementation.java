@@ -1,7 +1,6 @@
 package tech.gebel.javaorders.services;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import javax.persistence.EntityNotFoundException;
 import org.pcollections.TreePVector;
@@ -36,5 +35,10 @@ public class CustomerServiceImplementation implements CustomerService {
             String.format("No Customer found with ID %d", id)
           )
       );
+  }
+
+  @Override
+  public List<Customer> findCustomersLikeName(String name) {
+    return customersRepository.findByCustomerNameContainingIgnoringCase(name);
   }
 }

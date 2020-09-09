@@ -31,4 +31,10 @@ public class CustomerController {
     Customer customer = customerService.findCustomerById(id);
     return new ResponseEntity<>(customer, HttpStatus.OK);
   }
+
+  @GetMapping("/namelike/{name}")
+  private ResponseEntity<?> listCustomersLikeName(@PathVariable String name) {
+    List<Customer> customers = customerService.findCustomersLikeName(name);
+    return new ResponseEntity<>(customers, HttpStatus.OK);
+  }
 }
