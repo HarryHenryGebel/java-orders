@@ -2,6 +2,8 @@ package tech.gebel.javaorders.models;
 
 import java.util.List;
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.pcollections.TreePVector;
 
 @Entity
@@ -45,6 +47,7 @@ public class Customer {
     cascade = CascadeType.ALL,
     orphanRemoval = true
   )
+  @JsonIgnoreProperties(value = "customer", allowSetters = true)
   private List<Order> orders = TreePVector.empty();
 
   private String grade, phone;
@@ -75,6 +78,14 @@ public class Customer {
     this.agent = agent;
     this.grade = grade;
     this.phone = phone;
+  }
+
+  public List<Order> getOrders() {
+    return orders;
+  }
+
+  public void setOrders(List<Order> orders) {
+    this.orders = orders;
   }
 
   public long getCustomerCode() {
