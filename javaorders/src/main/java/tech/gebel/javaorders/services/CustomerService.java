@@ -5,4 +5,6 @@ import tech.gebel.javaorders.models.Customer;
 
 public interface CustomerService {
   List<Customer> findAllCustomers();
+
+  Customer findCustomerById(long id);
 }

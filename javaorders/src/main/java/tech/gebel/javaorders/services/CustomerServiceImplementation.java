@@ -3,6 +3,7 @@ package tech.gebel.javaorders.services;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import javax.persistence.EntityNotFoundException;
 import org.pcollections.TreePVector;
 import org.springframework.stereotype.Service;
 import tech.gebel.javaorders.models.Customer;
@@ -23,5 +24,17 @@ public class CustomerServiceImplementation implements CustomerService {
     ArrayList<Customer> list = new ArrayList<>();
     customersRepository.findAll().iterator().forEachRemaining(list::add);
     return TreePVector.from(list);
+  }
+
+  @Override
+  public Customer findCustomerById(long id) {
+    return customersRepository
+      .findById(id)
+      .orElseThrow(
+        () ->
+          new EntityNotFoundException(
+            String.format("No Customer found with ID %d", id)
+          )
+      );
   }
 }

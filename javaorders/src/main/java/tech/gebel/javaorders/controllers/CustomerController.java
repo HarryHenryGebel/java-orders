@@ -4,6 +4,7 @@ import java.util.List;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import tech.gebel.javaorders.models.Customer;
@@ -23,5 +24,11 @@ public class CustomerController {
   private ResponseEntity<?> listCustomersWithOrders() {
     final List<Customer> list = customerService.findAllCustomers();
     return new ResponseEntity<>(list, HttpStatus.OK);
+  }
+
+  @GetMapping("/customer/{id}")
+  private ResponseEntity<?> listCustomerById(@PathVariable long id) {
+    Customer customer = customerService.findCustomerById(id);
+    return new ResponseEntity<>(customer, HttpStatus.OK);
   }
 }

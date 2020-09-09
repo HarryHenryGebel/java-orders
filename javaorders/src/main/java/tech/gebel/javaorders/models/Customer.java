@@ -1,9 +1,8 @@
 package tech.gebel.javaorders.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.util.List;
 import javax.persistence.*;
-
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.pcollections.TreePVector;
 
 @Entity
