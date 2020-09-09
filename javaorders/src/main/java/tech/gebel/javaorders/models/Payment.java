@@ -1,9 +1,8 @@
 package tech.gebel.javaorders.models;
 
-import org.pcollections.HashTreePSet;
-
 import java.util.Set;
 import javax.persistence.*;
+import org.pcollections.HashTreePSet;
 
 @Entity
 @Table(name = "payments")

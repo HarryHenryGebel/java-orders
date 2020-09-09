@@ -1,10 +1,9 @@
 package tech.gebel.javaorders.models;
 
-import org.pcollections.HashTreePSet;
-import org.pcollections.PSet;
-
 import java.util.Set;
 import javax.persistence.*;
+import org.pcollections.HashTreePSet;
+import org.pcollections.PSet;
 
 @Entity
 @Table(name = "orders")
@@ -98,6 +97,6 @@ public class Order {
   }
 
   public void addPayments(Payment payment) {
-    payments = ((PSet)payments).plus(payment);
+    payments = ((PSet) payments).plus(payment);
   }
 }

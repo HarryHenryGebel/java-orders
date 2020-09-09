@@ -1,9 +1,8 @@
 package tech.gebel.javaorders.models;
 
-import org.pcollections.TreePVector;
-
 import java.util.List;
 import javax.persistence.*;
+import org.pcollections.TreePVector;
 
 @Entity
 @Table(name = "agents")
