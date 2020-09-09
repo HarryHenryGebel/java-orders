@@ -7,6 +7,7 @@ import org.pcollections.TreePVector;
 import org.springframework.stereotype.Service;
 import tech.gebel.javaorders.models.Customer;
 import tech.gebel.javaorders.repositories.CustomersRepository;
+import tech.gebel.javaorders.views.OrderCountView;
 
 @Service(value = "customerService")
 public class CustomerServiceImplementation implements CustomerService {
@@ -40,5 +41,11 @@ public class CustomerServiceImplementation implements CustomerService {
   @Override
   public List<Customer> findCustomersLikeName(String name) {
     return customersRepository.findByCustomerNameContainingIgnoringCase(name);
+  }
+
+  @Override
+  public List<OrderCountView> getOrderCount() {
+    List<OrderCountView> customers = customersRepository.getCustomersOrderCount();
+    return customers;
   }
 }

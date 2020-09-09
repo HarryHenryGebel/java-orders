@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import tech.gebel.javaorders.models.Customer;
 import tech.gebel.javaorders.repositories.AgentsRepository;
 import tech.gebel.javaorders.services.CustomerService;
+import tech.gebel.javaorders.views.OrderCountView;
 
 @RestController
 @RequestMapping("/customers")
@@ -35,6 +36,12 @@ public class CustomerController {
   @GetMapping("/namelike/{name}")
   private ResponseEntity<?> listCustomersLikeName(@PathVariable String name) {
     List<Customer> customers = customerService.findCustomersLikeName(name);
+    return new ResponseEntity<>(customers, HttpStatus.OK);
+  }
+
+  @GetMapping("/orders/count")
+  private ResponseEntity<?> getCustomerOrderCounts() {
+    List<OrderCountView> customers = customerService.getOrderCount();
     return new ResponseEntity<>(customers, HttpStatus.OK);
   }
 }
