@@ -64,7 +64,8 @@ public class Customer {
     double paymentAmount,
     double outstandingAmount,
     String phone,
-    Agent agent
+    Agent agent,
+    List<Order> orders
   ) {
     this.customerCity = customerCity;
     this.customerCountry = customerCountry;
@@ -77,6 +78,22 @@ public class Customer {
     this.agent = agent;
     this.grade = grade;
     this.phone = phone;
+    this.orders = orders;
+  }
+
+  public Customer(Customer customer) {
+    customerCity = customer.customerCity;
+    customerCountry = customer.customerCountry;
+    customerName = customer.customerName;
+    openingAmount = customer.openingAmount;
+    outstandingAmount = customer.outstandingAmount;
+    paymentAmount = customer.paymentAmount;
+    receiveAmount = customer.receiveAmount;
+    workingArea = customer.workingArea;
+    agent = customer.agent;
+    grade = customer.grade;
+    phone = customer.phone;
+    orders = customer.orders;
   }
 
   public List<Order> getOrders() {

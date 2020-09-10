@@ -48,6 +48,13 @@ public class Order {
     this.customer = customer;
   }
 
+  public Order(Order order) {
+    advanceAmount = order.advanceAmount;
+    orderAmount = order.orderAmount;
+    orderDescription = order.orderDescription;
+    customer = order.customer;
+  }
+
   public long getOrderNumber() {
     return orderNumber;
   }

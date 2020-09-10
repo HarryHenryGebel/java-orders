@@ -12,4 +12,6 @@ public interface CustomerService {
   List<Customer> findCustomersLikeName(String name);
 
   List<OrderCountView> getOrderCount();
+
+  Customer save(Customer customer);
 }
