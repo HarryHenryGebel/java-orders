@@ -21,6 +21,12 @@ public class CustomerController {
     this.customerService = customerService;
   }
 
+  @DeleteMapping(value = "/customer/{id}")
+  private ResponseEntity<?> deleteCustomerById(@PathVariable long id) {
+    customerService.deleteCustomerById(id);
+    return new ResponseEntity<>(HttpStatus.OK);
+  }
+
   @GetMapping("/orders")
   private ResponseEntity<?> listCustomersWithOrders() {
     final List<Customer> list = customerService.findAllCustomers();
