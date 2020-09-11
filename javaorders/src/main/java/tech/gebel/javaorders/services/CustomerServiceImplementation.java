@@ -100,11 +100,9 @@ public class CustomerServiceImplementation implements CustomerService {
   @Transactional
   @Override
   public Customer save(Customer customer, long id) {
-    if (!customersRepository.existsById(id)) {
-      throw new EntityNotFoundException(
-        format("Customer with id %d not found", id)
-      );
-    }
+    if (!customersRepository.existsById(id)) throw new EntityNotFoundException(
+      format("Customer with id %d not found", id)
+    );
     customer.setCustomerCode(id);
     return save(customer);
   }
