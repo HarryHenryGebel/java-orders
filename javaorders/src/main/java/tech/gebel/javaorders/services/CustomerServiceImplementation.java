@@ -58,8 +58,7 @@ public class CustomerServiceImplementation implements CustomerService {
 
   @Override
   public List<OrderCountView> getOrderCount() {
-    List<OrderCountView> customers = customersRepository.getCustomersOrderCount();
-    return customers;
+    return customersRepository.getCustomersOrderCount();
   }
 
   @Transactional
@@ -86,7 +85,7 @@ public class CustomerServiceImplementation implements CustomerService {
       Order newOrder = new Order(order);
       newOrder.setCustomer(newCustomer);
 
-      Set<Payment> payments = new HashSet();
+      Set<Payment> payments = new HashSet<>();
 
       for (Payment payment : order.getPayments()) {
         Payment newPayment = paymentsRepository
@@ -95,7 +94,7 @@ public class CustomerServiceImplementation implements CustomerService {
             () ->
               new EntityNotFoundException(
                 String.format(
-                  "Payment with id $d not found",
+                  "Payment with id %d not found",
                   payment.getPaymentId()
                 )
               )
