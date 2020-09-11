@@ -14,4 +14,6 @@ public interface CustomerService {
   List<OrderCountView> getOrderCount();
 
   Customer save(Customer customer);
+
+  Customer save(Customer customer, long id);
 }

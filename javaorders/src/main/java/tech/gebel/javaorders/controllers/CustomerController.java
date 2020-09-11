@@ -59,4 +59,13 @@ public class CustomerController {
     headers.setLocation(createdLocation);
     return new ResponseEntity<>(null, headers, HttpStatus.CREATED);
   }
+
+  @PutMapping("/customer/{id}")
+  private ResponseEntity<?> replaceCustomer(
+    @PathVariable long id,
+    @RequestBody @Valid Customer customer
+  ) {
+    customerService.save(customer, id);
+    return new ResponseEntity<>(HttpStatus.OK);
+  }
 }

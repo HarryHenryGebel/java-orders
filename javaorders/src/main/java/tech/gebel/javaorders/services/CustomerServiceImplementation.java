@@ -112,4 +112,16 @@ public class CustomerServiceImplementation implements CustomerService {
     newCustomer.setOrders(TreePVector.from(orders));
     return customersRepository.save(newCustomer);
   }
+
+  @Transactional
+  @Override
+  public Customer save(Customer customer, long id) {
+    if (!customersRepository.existsById(id)) {
+      throw new EntityNotFoundException(
+        String.format("Customer with id %d not found", id)
+      );
+    }
+    customer.setCustomerCode(id);
+    return save(customer);
+  }
 }
