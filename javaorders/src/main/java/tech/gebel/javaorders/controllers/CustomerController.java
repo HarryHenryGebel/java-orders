@@ -56,14 +56,14 @@ public class CustomerController {
     @Valid @RequestBody Customer customer
   ) {
     Customer newCustomer = customerService.save(customer);
-    HttpHeaders headers = new HttpHeaders();
-    URI createdLocation = ServletUriComponentsBuilder
+    HttpHeaders httpHeaders = new HttpHeaders();
+    URI uri = ServletUriComponentsBuilder
       .fromCurrentRequest()
       .path("/{id}")
       .buildAndExpand(newCustomer.getCustomerCode())
       .toUri();
-    headers.setLocation(createdLocation);
-    return new ResponseEntity<>(null, headers, HttpStatus.CREATED);
+    httpHeaders.setLocation(uri);
+    return new ResponseEntity<>(null, httpHeaders, HttpStatus.CREATED);
   }
 
   @PatchMapping("/customer/{id}")
