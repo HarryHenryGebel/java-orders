@@ -5,6 +5,8 @@ import static java.lang.String.format;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.EntityNotFoundException;
+import javax.transaction.Transactional;
+
 import org.springframework.stereotype.Service;
 import tech.gebel.javaorders.models.Customer;
 import tech.gebel.javaorders.models.Order;
@@ -39,6 +41,7 @@ public class OrderServiceImplementation implements OrderService {
       );
   }
 
+  @Transactional
   @Override
   public Order save(Order order) {
     Order newOrder = new Order(order);
@@ -59,6 +62,7 @@ public class OrderServiceImplementation implements OrderService {
     return ordersRepository.save(newOrder);
   }
 
+  @Transactional
   @Override
   public void save(Order order, long id) {
     if (!ordersRepository.existsById(id)) throw new EntityNotFoundException(

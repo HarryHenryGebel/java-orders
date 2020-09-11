@@ -107,6 +107,7 @@ public class CustomerServiceImplementation implements CustomerService {
     return save(customer);
   }
 
+  @Transactional
   @Override
   public Customer update(Customer customer, long id) {
     if (!customersRepository.existsById(id)) throw new EntityNotFoundException(
