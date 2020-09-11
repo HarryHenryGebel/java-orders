@@ -1,9 +1,9 @@
 package tech.gebel.javaorders.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.*;
-import org.pcollections.TreePVector;
 
 @Entity
 @Table(name = "customers")
@@ -47,7 +47,7 @@ public class Customer {
     orphanRemoval = true
   )
   @JsonIgnoreProperties(value = "customer", allowSetters = true)
-  private List<Order> orders = TreePVector.empty();
+  private List<Order> orders = new ArrayList<>();
 
   private String grade, phone;
 

@@ -1,9 +1,8 @@
 package tech.gebel.javaorders.models;
 
+import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.*;
-import org.pcollections.HashTreePSet;
-import org.pcollections.PSet;
 
 @Entity
 @Table(name = "orders")
@@ -32,7 +31,7 @@ public class Order {
     joinColumns = @JoinColumn(name = "ordnum"),
     inverseJoinColumns = @JoinColumn(name = "paymentid")
   )
-  Set<Payment> payments = HashTreePSet.empty();
+  Set<Payment> payments = new HashSet<>();
 
   public Order() {}
 
@@ -104,6 +103,6 @@ public class Order {
   }
 
   public void addPayments(Payment payment) {
-    payments = ((PSet) payments).plus(payment);
+    payments.add(payment);
   }
 }

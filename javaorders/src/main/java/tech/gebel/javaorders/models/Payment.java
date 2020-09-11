@@ -1,8 +1,8 @@
 package tech.gebel.javaorders.models;
 
+import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.*;
-import org.pcollections.HashTreePSet;
 
 @Entity
 @Table(name = "payments")
@@ -16,7 +16,7 @@ public class Payment {
   private String type;
 
   @ManyToMany(mappedBy = "payments")
-  Set<Order> orders = HashTreePSet.empty();
+  Set<Order> orders = new HashSet<>();
 
   public Payment() {}
 

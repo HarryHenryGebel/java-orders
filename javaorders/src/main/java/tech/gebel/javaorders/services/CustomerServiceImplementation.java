@@ -6,8 +6,6 @@ import java.util.List;
 import java.util.Set;
 import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
-import org.pcollections.HashTreePSet;
-import org.pcollections.TreePVector;
 import org.springframework.stereotype.Service;
 import tech.gebel.javaorders.models.Agent;
 import tech.gebel.javaorders.models.Customer;
@@ -38,7 +36,7 @@ public class CustomerServiceImplementation implements CustomerService {
   public List<Customer> findAllCustomers() {
     ArrayList<Customer> list = new ArrayList<>();
     customersRepository.findAll().iterator().forEachRemaining(list::add);
-    return TreePVector.from(list);
+    return list;
   }
 
   @Override
@@ -121,10 +119,10 @@ public class CustomerServiceImplementation implements CustomerService {
           );
         payments.add(newPayment);
       }
-      newOrder.setPayments(HashTreePSet.from(payments));
+      newOrder.setPayments(payments);
       orders.add(newOrder);
     }
-    newCustomer.setOrders(TreePVector.from(orders));
+    newCustomer.setOrders(orders);
 
     return customersRepository.save(newCustomer);
   }

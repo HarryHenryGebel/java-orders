@@ -1,8 +1,8 @@
 package tech.gebel.javaorders.models;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.*;
-import org.pcollections.TreePVector;
 
 @Entity
 @Table(name = "agents")
@@ -23,7 +23,7 @@ public class Agent {
     cascade = CascadeType.ALL,
     orphanRemoval = true
   )
-  private List<Customer> customers = TreePVector.empty();
+  private List<Customer> customers = new ArrayList<>();
 
   private double commission;
   private String country, phone;
