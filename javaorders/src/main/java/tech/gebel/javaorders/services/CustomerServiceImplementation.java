@@ -142,21 +142,10 @@ public class CustomerServiceImplementation implements CustomerService {
     if (customer.getAgent() != null) originalCustomer.setAgent(
       customer.getAgent()
     );
-    //      originalCustomer
-    //        .setAgent(agentsRepository
-    //          .findById(customer.getAgent().getAgentCode())
-    //        .orElseThrow(() -> new EntityNotFoundException(
-    //          format("Agent with id %d not found.",
-    //            customer.getAgent().getAgentCode()))));
-    if (customer.getOrders() != null) originalCustomer.setOrders(
-      customer.getOrders()
-    );
-    //      originalCustomer.getOrders().clear();
-    //      for (Order order : customer.getOrders()) {
-    //        Order newOrder = new Order(order);
-    //        newOrder.getPayments().clear();
-    //        for (Payment payment : order.getPayments())
-    //      }
+    if (customer.getOrders() != null) {
+      originalCustomer.getOrders().clear();
+      originalCustomer.getOrders().addAll(customer.getOrders());
+    }
     return save(originalCustomer);
   }
 }
