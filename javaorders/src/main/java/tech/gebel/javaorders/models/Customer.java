@@ -203,23 +203,33 @@ public class Customer {
     this.phone = phone;
   }
 
-  public void update(Customer customer) {
-    customerCode = optionallyReplace(customerCode, customer.customerCode);
+  /**
+   * Update a Customer with all fields except agent and orders than are nonnull
+   * in another Customer instance
+   * @param updateCustomer Customer from which to copy field
+   */
+  public void update(Customer updateCustomer) {
+    customerCode = optionallyReplace(customerCode, updateCustomer.customerCode);
     customerCity =
-      (String) optionallyReplace(customerCity, customer.customerCity);
+      (String) optionallyReplace(customerCity, updateCustomer.customerCity);
     customerCountry =
-      (String) optionallyReplace(customerCountry, customer.customerCountry);
+      (String) optionallyReplace(
+        customerCountry,
+        updateCustomer.customerCountry
+      );
     customerName =
-      (String) optionallyReplace(customerName, customer.customerName);
-    openingAmount = optionallyReplace(openingAmount, customer.openingAmount);
+      (String) optionallyReplace(customerName, updateCustomer.customerName);
+    openingAmount =
+      optionallyReplace(openingAmount, updateCustomer.openingAmount);
     outstandingAmount =
-      optionallyReplace(outstandingAmount, customer.outstandingAmount);
-    paymentAmount = optionallyReplace(paymentAmount, customer.paymentAmount);
-    receiveAmount = optionallyReplace(receiveAmount, customer.receiveAmount);
-    workingArea = (String) optionallyReplace(workingArea, customer.workingArea);
-    agent = (Agent) optionallyReplace(agent, customer.agent);
-    grade = (String) optionallyReplace(grade, customer.grade);
-    phone = (String) optionallyReplace(phone, customer.phone);
-    orders = (List<Order>) optionallyReplace(orders, customer.orders);
+      optionallyReplace(outstandingAmount, updateCustomer.outstandingAmount);
+    paymentAmount =
+      optionallyReplace(paymentAmount, updateCustomer.paymentAmount);
+    receiveAmount =
+      optionallyReplace(receiveAmount, updateCustomer.receiveAmount);
+    workingArea =
+      (String) optionallyReplace(workingArea, updateCustomer.workingArea);
+    grade = (String) optionallyReplace(grade, updateCustomer.grade);
+    phone = (String) optionallyReplace(phone, updateCustomer.phone);
   }
 }
