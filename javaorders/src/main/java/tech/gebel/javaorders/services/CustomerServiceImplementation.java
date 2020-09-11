@@ -86,32 +86,30 @@ public class CustomerServiceImplementation implements CustomerService {
 
     List<Order> orders = new ArrayList<>();
     // don't have to check for orders on a new customer
-    if (customer.getCustomerCode() > 0) {
-      for (Order order : customer.getOrders()) {
-        Order newOrder = new Order(order);
-        newOrder.setCustomer(newCustomer);
+    for (Order order : customer.getOrders()) {
+      Order newOrder = new Order(order);
+      newOrder.setCustomer(newCustomer);
 
-        Set<Payment> payments = new HashSet();
+      Set<Payment> payments = new HashSet();
 
-        for (Payment payment : order.getPayments()) {
-          Payment newPayment = paymentsRepository
-            .findById(payment.getPaymentId())
-            .orElseThrow(
-              () ->
-                new EntityNotFoundException(
-                  String.format(
-                    "Payment with id $d not found",
-                    payment.getPaymentId()
-                  )
+      for (Payment payment : order.getPayments()) {
+        Payment newPayment = paymentsRepository
+          .findById(payment.getPaymentId())
+          .orElseThrow(
+            () ->
+              new EntityNotFoundException(
+                String.format(
+                  "Payment with id $d not found",
+                  payment.getPaymentId()
                 )
-            );
-          payments.add(newPayment);
-        }
-        newOrder.setPayments(HashTreePSet.from(payments));
-        orders.add(newOrder);
+              )
+          );
+        payments.add(newPayment);
       }
+      newOrder.setPayments(HashTreePSet.from(payments));
+      orders.add(newOrder);
     }
     newCustomer.setOrders(TreePVector.from(orders));
-    return customersRepository.save(customer);
+    return customersRepository.save(newCustomer);
   }
 }
