@@ -81,7 +81,7 @@ public class CustomerServiceImplementation implements CustomerService {
       );
     newCustomer.setAgent(agent);
 
-    List<Order> orders = new ArrayList<>();
+    Set<Order> orders = new HashSet<>();
     // don't have to check for orders on a new customer
     for (Order order : customer.getOrders()) {
       Order newOrder = new Order(order);

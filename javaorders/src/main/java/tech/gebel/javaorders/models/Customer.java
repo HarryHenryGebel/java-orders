@@ -4,7 +4,9 @@ import static tech.gebel.javaorders.Utility.optionallyReplace;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import javax.persistence.*;
 
 @Entity
@@ -49,7 +51,7 @@ public class Customer {
     orphanRemoval = true
   )
   @JsonIgnoreProperties(value = "customer", allowSetters = true)
-  private List<Order> orders = new ArrayList<>();
+  private Set<Order> orders = new HashSet<>();
 
   private String grade, phone;
 
@@ -67,7 +69,7 @@ public class Customer {
     double outstandingAmount,
     String phone,
     Agent agent,
-    List<Order> orders
+    Set<Order> orders
   ) {
     this.customerCity = customerCity;
     this.customerCountry = customerCountry;
@@ -99,11 +101,11 @@ public class Customer {
     orders = customer.orders;
   }
 
-  public List<Order> getOrders() {
+  public Set<Order> getOrders() {
     return orders;
   }
 
-  public void setOrders(List<Order> orders) {
+  public void setOrders(Set<Order> orders) {
     this.orders = orders;
   }
 
