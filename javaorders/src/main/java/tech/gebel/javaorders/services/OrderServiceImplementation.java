@@ -59,6 +59,15 @@ public class OrderServiceImplementation implements OrderService {
     return ordersRepository.save(newOrder);
   }
 
+  @Override
+  public void save(Order order, long id) {
+    if (!ordersRepository.existsById(id)) throw new EntityNotFoundException(
+      format("Order with id %d not found", id)
+    );
+    order.setOrderNumber(id);
+    save(order);
+  }
+
   static void makeOrder(
     Order order,
     Order newOrder,
