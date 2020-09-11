@@ -56,6 +56,7 @@ public class CustomerController {
       .path("/{id}")
       .buildAndExpand(newCustomer.getCustomerCode())
       .toUri();
+    headers.setLocation(createdLocation);
     return new ResponseEntity<>(null, headers, HttpStatus.CREATED);
   }
 }
