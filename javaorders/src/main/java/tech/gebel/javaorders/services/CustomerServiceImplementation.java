@@ -67,7 +67,24 @@ public class CustomerServiceImplementation implements CustomerService {
   @Transactional
   @Override
   public Customer save(Customer customer) {
-    Customer newCustomer = new Customer(customer);
+    Customer newCustomer;
+    if (!customersRepository.existsById(customer.getCustomerCode())) {
+      // if customer exists, load existing customer instance and replace data
+      newCustomer =
+        customersRepository
+          .findById(customer.getCustomerCode())
+          .orElseThrow(
+            () ->
+              new AssertionError(
+                String.format(
+                  "Existing ID %d did not return a record.\n" +
+                  "This should not be possible, please report.",
+                  customer.getCustomerCode()
+                )
+              )
+          );
+      newCustomer.replaceCustomerData(customer);
+    } else newCustomer = new Customer(customer);
 
     Agent agent = agentsRepository
       .findById(customer.getAgent().getAgentCode())
@@ -75,10 +92,8 @@ public class CustomerServiceImplementation implements CustomerService {
         () ->
           new EntityNotFoundException(
             String.format(
-              String.format(
-                "Agent with id %d not found",
-                customer.getAgent().getAgentCode()
-              )
+              "Agent with id %d not found",
+              customer.getAgent().getAgentCode()
             )
           )
       );
@@ -110,6 +125,7 @@ public class CustomerServiceImplementation implements CustomerService {
       orders.add(newOrder);
     }
     newCustomer.setOrders(TreePVector.from(orders));
+
     return customersRepository.save(newCustomer);
   }
 

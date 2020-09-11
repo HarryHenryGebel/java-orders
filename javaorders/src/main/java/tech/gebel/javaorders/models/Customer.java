@@ -82,6 +82,7 @@ public class Customer {
   }
 
   public Customer(Customer customer) {
+    customerCode = customer.customerCode;
     customerCity = customer.customerCity;
     customerCountry = customer.customerCountry;
     customerName = customer.customerName;
@@ -198,5 +199,21 @@ public class Customer {
 
   public void setPhone(String phone) {
     this.phone = phone;
+  }
+
+  public void replaceCustomerData(Customer customer) {
+    customerCode = customer.customerCode;
+    customerCity = customer.customerCity;
+    customerCountry = customer.customerCountry;
+    customerName = customer.customerName;
+    openingAmount = customer.openingAmount;
+    outstandingAmount = customer.outstandingAmount;
+    paymentAmount = customer.paymentAmount;
+    receiveAmount = customer.receiveAmount;
+    workingArea = customer.workingArea;
+    agent = customer.agent;
+    grade = customer.grade;
+    phone = customer.phone;
+    orders = customer.orders;
   }
 }
