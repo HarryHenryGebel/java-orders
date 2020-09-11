@@ -1,9 +1,12 @@
 package tech.gebel.javaorders.controllers;
 
+import java.net.URI;
 import javax.validation.Valid;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import tech.gebel.javaorders.models.Customer;
 import tech.gebel.javaorders.models.Order;
 import tech.gebel.javaorders.services.OrderService;
@@ -24,7 +27,16 @@ public class OrderController {
   }
 
   @PostMapping(value = "/order")
-  private ResponseEntity<?> createOrder(@Valid @RequestBody Order order) {
+  private ResponseEntity<?> addNewOrder(@Valid @RequestBody Order order) {
     Order newOrder = orderService.save(order);
+    HttpHeaders httpHeaders = new HttpHeaders();
+    URI uri = ServletUriComponentsBuilder
+      .fromCurrentRequest()
+      .path("/{id}")
+      .buildAndExpand(newOrder.getOrderNumber())
+      .toUri();
+    httpHeaders.setLocation(uri);
+
+    return new ResponseEntity<>(null, httpHeaders, HttpStatus.CREATED);
   }
 }
