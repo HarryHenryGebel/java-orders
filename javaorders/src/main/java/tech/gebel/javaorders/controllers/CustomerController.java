@@ -60,6 +60,15 @@ public class CustomerController {
     return new ResponseEntity<>(null, headers, HttpStatus.CREATED);
   }
 
+  @PatchMapping("/customer/{id}")
+  private ResponseEntity<?> updateCustomer(
+    @PathVariable long id,
+    @RequestBody @Valid Customer customer
+  ) {
+    customerService.update(customer, id);
+    return new ResponseEntity<>(HttpStatus.OK);
+  }
+
   @PutMapping("/customer/{id}")
   private ResponseEntity<?> replaceCustomer(
     @PathVariable long id,

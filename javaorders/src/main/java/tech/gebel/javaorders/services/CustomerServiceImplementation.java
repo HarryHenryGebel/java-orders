@@ -120,4 +120,27 @@ public class CustomerServiceImplementation implements CustomerService {
     customer.setCustomerCode(id);
     return save(customer);
   }
+
+  @Override
+  public Customer update(Customer customer, long id) {
+    if (!customersRepository.existsById(id)) throw new EntityNotFoundException(
+      String.format("Customer with id %d not found", id)
+    );
+
+    Customer originalCustomer = customersRepository
+      .findById(id)
+      .orElseThrow(
+        () ->
+          new AssertionError(
+            String.format(
+              "Customer record with id %d returns NULL despite existing.\n" +
+              "This should not be possible, please report this as a bug.",
+              id
+            )
+          )
+      );
+    originalCustomer.update(customer);
+
+    return save(customer);
+  }
 }
