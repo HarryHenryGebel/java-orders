@@ -6,7 +6,6 @@ import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
-
 import org.springframework.stereotype.Service;
 import tech.gebel.javaorders.models.Customer;
 import tech.gebel.javaorders.models.Order;
@@ -70,6 +69,18 @@ public class OrderServiceImplementation implements OrderService {
     );
     order.setOrderNumber(id);
     save(order);
+  }
+
+  @Transactional
+  @Override
+  public void deleteOrderById(long id) {
+    Order order = ordersRepository
+      .findById(id)
+      .orElseThrow(
+        () ->
+          new EntityNotFoundException(format("No Order found with ID %d", id))
+      );
+    ordersRepository.delete(order);
   }
 
   static void makeOrder(

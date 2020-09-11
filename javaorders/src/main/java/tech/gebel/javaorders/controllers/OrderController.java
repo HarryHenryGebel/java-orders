@@ -20,6 +20,12 @@ public class OrderController {
     this.orderService = orderService;
   }
 
+  @DeleteMapping(value = "/order/{id}")
+  private ResponseEntity<?> deleteCustomerById(@PathVariable long id) {
+    orderService.deleteOrderById(id);
+    return new ResponseEntity<>(HttpStatus.OK);
+  }
+
   @GetMapping(value = "/order/{id}")
   private ResponseEntity<?> listOrderById(@PathVariable long id) {
     Order order = orderService.findOrderById(id);

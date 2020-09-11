@@ -8,4 +8,6 @@ public interface OrderService {
   Order save(Order order);
 
   void save(Order order, long id);
+
+  void deleteOrderById(long id);
 }
