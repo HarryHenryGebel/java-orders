@@ -1,5 +1,7 @@
 package tech.gebel.javaorders.models;
 
+import static tech.gebel.javaorders.Utility.optionallyReplace;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.util.ArrayList;
 import java.util.List;
@@ -201,19 +203,23 @@ public class Customer {
     this.phone = phone;
   }
 
-  public void replaceCustomerData(Customer customer) {
-    customerCode = customer.customerCode;
-    customerCity = customer.customerCity;
-    customerCountry = customer.customerCountry;
-    customerName = customer.customerName;
-    openingAmount = customer.openingAmount;
-    outstandingAmount = customer.outstandingAmount;
-    paymentAmount = customer.paymentAmount;
-    receiveAmount = customer.receiveAmount;
-    workingArea = customer.workingArea;
-    agent = customer.agent;
-    grade = customer.grade;
-    phone = customer.phone;
-    orders = customer.orders;
+  public void update(Customer customer) {
+    customerCode = optionallyReplace(customerCode, customer.customerCode);
+    customerCity =
+      (String) optionallyReplace(customerCity, customer.customerCity);
+    customerCountry =
+      (String) optionallyReplace(customerCountry, customer.customerCountry);
+    customerName =
+      (String) optionallyReplace(customerName, customer.customerName);
+    openingAmount = optionallyReplace(openingAmount, customer.openingAmount);
+    outstandingAmount =
+      optionallyReplace(outstandingAmount, customer.outstandingAmount);
+    paymentAmount = optionallyReplace(paymentAmount, customer.paymentAmount);
+    receiveAmount = optionallyReplace(receiveAmount, customer.receiveAmount);
+    workingArea = (String) optionallyReplace(workingArea, customer.workingArea);
+    agent = (Agent) optionallyReplace(agent, customer.agent);
+    grade = (String) optionallyReplace(grade, customer.grade);
+    phone = (String) optionallyReplace(phone, customer.phone);
+    orders = (List<Order>) optionallyReplace(orders, customer.orders);
   }
 }
