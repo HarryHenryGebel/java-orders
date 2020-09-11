@@ -1,5 +1,7 @@
 package tech.gebel.javaorders.services;
 
+import static java.lang.String.format;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -46,7 +48,7 @@ public class CustomerServiceImplementation implements CustomerService {
       .orElseThrow(
         () ->
           new EntityNotFoundException(
-            String.format("No Customer found with ID %d", id)
+            format("No Customer found with ID %d", id)
           )
       );
   }
@@ -71,7 +73,7 @@ public class CustomerServiceImplementation implements CustomerService {
       .orElseThrow(
         () ->
           new EntityNotFoundException(
-            String.format(
+            format(
               "Agent with id %d not found",
               customer.getAgent().getAgentCode()
             )
@@ -93,10 +95,7 @@ public class CustomerServiceImplementation implements CustomerService {
           .orElseThrow(
             () ->
               new EntityNotFoundException(
-                String.format(
-                  "Payment with id %d not found",
-                  payment.getPaymentId()
-                )
+                format("Payment with id %d not found", payment.getPaymentId())
               )
           );
         payments.add(newPayment);
@@ -114,7 +113,7 @@ public class CustomerServiceImplementation implements CustomerService {
   public Customer save(Customer customer, long id) {
     if (!customersRepository.existsById(id)) {
       throw new EntityNotFoundException(
-        String.format("Customer with id %d not found", id)
+        format("Customer with id %d not found", id)
       );
     }
     customer.setCustomerCode(id);
@@ -124,7 +123,7 @@ public class CustomerServiceImplementation implements CustomerService {
   @Override
   public Customer update(Customer customer, long id) {
     if (!customersRepository.existsById(id)) throw new EntityNotFoundException(
-      String.format("Customer with id %d not found", id)
+      format("Customer with id %d not found", id)
     );
 
     Customer originalCustomer = customersRepository
@@ -132,7 +131,7 @@ public class CustomerServiceImplementation implements CustomerService {
       .orElseThrow(
         () ->
           new AssertionError(
-            String.format(
+            format(
               "Customer record with id %d returns NULL despite existing.\n" +
               "This should not be possible, please report this as a bug.",
               id
@@ -140,7 +139,24 @@ public class CustomerServiceImplementation implements CustomerService {
           )
       );
     originalCustomer.update(customer);
-
-    return save(customer);
+    if (customer.getAgent() != null) originalCustomer.setAgent(
+      customer.getAgent()
+    );
+    //      originalCustomer
+    //        .setAgent(agentsRepository
+    //          .findById(customer.getAgent().getAgentCode())
+    //        .orElseThrow(() -> new EntityNotFoundException(
+    //          format("Agent with id %d not found.",
+    //            customer.getAgent().getAgentCode()))));
+    if (customer.getOrders() != null) originalCustomer.setOrders(
+      customer.getOrders()
+    );
+    //      originalCustomer.getOrders().clear();
+    //      for (Order order : customer.getOrders()) {
+    //        Order newOrder = new Order(order);
+    //        newOrder.getPayments().clear();
+    //        for (Payment payment : order.getPayments())
+    //      }
+    return save(originalCustomer);
   }
 }
