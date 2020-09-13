@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import tech.gebel.javaorders.models.Customer;
 import tech.gebel.javaorders.services.CustomerService;
-import tech.gebel.javaorders.views.OrderCountView;
 
 @RestController
 @RequestMapping("/customers")
