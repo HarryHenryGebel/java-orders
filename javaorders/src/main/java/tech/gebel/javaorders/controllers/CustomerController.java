@@ -45,12 +45,6 @@ public class CustomerController {
     return new ResponseEntity<>(customers, HttpStatus.OK);
   }
 
-  @GetMapping("/orders/count")
-  private ResponseEntity<?> getCustomerOrderCounts() {
-    List<OrderCountView> customers = customerService.getOrderCount();
-    return new ResponseEntity<>(customers, HttpStatus.OK);
-  }
-
   @PostMapping("/customer")
   private ResponseEntity<?> addNewCustomer(
     @Valid @RequestBody Customer customer

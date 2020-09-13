@@ -15,7 +15,6 @@ import tech.gebel.javaorders.models.Order;
 import tech.gebel.javaorders.repositories.AgentsRepository;
 import tech.gebel.javaorders.repositories.CustomersRepository;
 import tech.gebel.javaorders.repositories.PaymentsRepository;
-import tech.gebel.javaorders.views.OrderCountView;
 
 @Service(value = "customerService")
 public class CustomerServiceImplementation implements CustomerService {
@@ -55,11 +54,6 @@ public class CustomerServiceImplementation implements CustomerService {
   @Override
   public List<Customer> findCustomersLikeName(String name) {
     return customersRepository.findByCustomerNameContainingIgnoringCase(name);
-  }
-
-  @Override
-  public List<OrderCountView> getOrderCount() {
-    return customersRepository.getCustomersOrderCount();
   }
 
   @Transactional
