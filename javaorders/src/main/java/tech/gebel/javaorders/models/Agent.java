@@ -10,13 +10,13 @@ import javax.persistence.*;
 public class Agent {
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
-  @Column(name = "agentcode", nullable = false)
+  @Column(name = "agent_code", nullable = false)
   private long agentCode;
 
-  @Column(name = "agentname")
+  @Column(name = "agent_name")
   private String agentName;
 
-  @Column(name = "workingarea")
+  @Column(name = "working_area")
   private String workingArea;
 
   @OneToMany(

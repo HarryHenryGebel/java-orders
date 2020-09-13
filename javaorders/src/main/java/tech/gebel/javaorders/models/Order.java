@@ -9,27 +9,27 @@ import javax.persistence.*;
 public class Order {
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
-  @Column(name = "ordnum", nullable = false)
+  @Column(name = "order_number", nullable = false)
   private long orderNumber;
 
-  @Column(name = "advanceamount")
+  @Column(name = "advance_amount")
   private double advanceAmount;
 
-  @Column(name = "ordamount")
+  @Column(name = "order_amount")
   private double orderAmount;
 
-  @Column(name = "orderdescription", nullable = false)
+  @Column(name = "order_description", nullable = false)
   private String orderDescription;
 
   @ManyToOne
-  @JoinColumn(name = "custcode", nullable = false)
+  @JoinColumn(name = "customer_code", nullable = false)
   private Customer customer;
 
   @ManyToMany
   @JoinTable(
-    name = "orderspayments",
-    joinColumns = @JoinColumn(name = "ordnum"),
-    inverseJoinColumns = @JoinColumn(name = "paymentid")
+    name = "orders_payments",
+    joinColumns = @JoinColumn(name = "order_number"),
+    inverseJoinColumns = @JoinColumn(name = "payment_id")
   )
   Set<Payment> payments = new HashSet<>();
 

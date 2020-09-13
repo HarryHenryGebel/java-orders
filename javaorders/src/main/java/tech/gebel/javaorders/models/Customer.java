@@ -3,9 +3,7 @@ package tech.gebel.javaorders.models;
 import static tech.gebel.javaorders.Utility.optionallyReplace;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 import javax.persistence.*;
 
@@ -14,35 +12,35 @@ import javax.persistence.*;
 public class Customer {
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
-  @Column(name = "custcode", nullable = false)
+  @Column(name = "customer_code", nullable = false)
   private long customerCode;
 
-  @Column(name = "custcity")
+  @Column(name = "customer_city")
   private String customerCity;
 
-  @Column(name = "custcountry")
+  @Column(name = "customer_country")
   private String customerCountry;
 
-  @Column(name = "custname", nullable = false)
+  @Column(name = "customer_name", nullable = false)
   private String customerName;
 
-  @Column(name = "openingamt")
+  @Column(name = "opening_amount")
   private double openingAmount;
 
-  @Column(name = "outstandingamt")
+  @Column(name = "outstanding_amount")
   private double outstandingAmount;
 
-  @Column(name = "paymentamt")
+  @Column(name = "payment_amount")
   private double paymentAmount;
 
-  @Column(name = "receiveamt")
+  @Column(name = "receive_amount")
   private double receiveAmount;
 
-  @Column(name = "workingarea")
+  @Column(name = "working_area")
   private String workingArea;
 
   @ManyToOne
-  @JoinColumn(name = "agentcode", nullable = false)
+  @JoinColumn(name = "agent_code", nullable = false)
   private Agent agent;
 
   @OneToMany(

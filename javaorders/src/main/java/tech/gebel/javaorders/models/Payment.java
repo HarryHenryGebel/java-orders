@@ -9,7 +9,7 @@ import javax.persistence.*;
 public class Payment {
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
-  @Column(name = "paymentid", nullable = false)
+  @Column(name = "payment_id", nullable = false)
   private long paymentId;
 
   @Column(nullable = false, unique = true)
