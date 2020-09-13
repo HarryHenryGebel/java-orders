@@ -7,6 +7,7 @@ import java.util.Set;
 import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
 import org.springframework.stereotype.Service;
+import tech.gebel.javaorders.Utility;
 import tech.gebel.javaorders.models.Customer;
 import tech.gebel.javaorders.models.Order;
 import tech.gebel.javaorders.models.Payment;
@@ -56,7 +57,7 @@ public class OrderServiceImplementation implements OrderService {
             )
           )
       );
-    makeOrder(order, newOrder, customer, paymentsRepository);
+    Utility.makeOrder(order, newOrder, customer, paymentsRepository);
 
     return ordersRepository.save(newOrder);
   }

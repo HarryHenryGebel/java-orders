@@ -78,12 +78,7 @@ public class CustomerServiceImplementation implements CustomerService {
     // don't have to check for orders on a new customer
     for (Order order : customer.getOrders()) {
       Order newOrder = new Order(order);
-      OrderServiceImplementation.makeOrder(
-        order,
-        newOrder,
-        newCustomer,
-        paymentsRepository
-      );
+      Utility.makeOrder(order, newOrder, newCustomer, paymentsRepository);
       orders.add(newOrder);
     }
     newCustomer.setOrders(orders);
