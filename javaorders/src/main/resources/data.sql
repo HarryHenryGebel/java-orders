@@ -7,7 +7,7 @@ FROM customers;
 DELETE
 FROM agents;
 
-INSERT INTO AGENTS (agentcode, agentname, workingarea, commission, phone, country)
+INSERT INTO AGENTS (agent_code, agent_name, working_area, commission, phone, country)
             VALUES (1, 'Ramasundar', 'Bangalore', 0.15, '077-25814763', ''),
                    (2, 'Alex', 'London', 0.13, '075-12458969', ''),
                    (3, 'Alford', 'New York', 0.12, '044-25874365', ''),
@@ -21,7 +21,7 @@ INSERT INTO AGENTS (agentcode, agentname, workingarea, commission, phone, countr
                    (11, 'Ivan', 'Torento', 0.15, '008-22544166', ''),
                    (12, 'Benjamin', 'Hampshair', 0.11, '008-22536178', '');
 
-INSERT INTO CUSTOMERS (custcode, custname, custcity, workingarea, custcountry, grade, openingamt, receiveamt, paymentamt, outstandingamt, phone, agentcode)
+INSERT INTO CUSTOMERS (customer_code, customer_name, customer_city, working_area, customer_country, grade, opening_amount, receive_amount, payment_amount, outstanding_amount, phone, agent_code)
                VALUES (1, 'Holmes', 'London', 'London', 'UK', '2', 6000.00, 5000.00, 7000.00, 4000.00, 'BBBBBBB', 3),
                       (2, 'Micheal', 'New York', 'New York', 'USA', '2', 3000.00, 5000.00, 2000.00, 6000.00, 'CCCCCCC', 8),
                       (3, 'Albert', 'New York', 'New York', 'USA', '3', 5000.00, 7000.00, 6000.00, 6000.00, 'BBBBSBB', 8),
@@ -48,7 +48,7 @@ INSERT INTO CUSTOMERS (custcode, custname, custcity, workingarea, custcountry, g
                       (24, 'Venkatpati', 'Bangalore', 'Bangalore', 'India', '2', 8000.00, 11000.00, 7000.00, 12000.00, 'JRTVFDD', 7),
                       (25, 'Sundariya', 'Chennai', 'Chennai', 'India', '3', 7000.00, 11000.00, 7000.00, 11000.00, 'PPHGRTS', 10);
 
-INSERT INTO ORDERS (ordnum, ordamount, advanceamount, custcode, orderdescription)
+INSERT INTO ORDERS (order_number, order_amount, advance_amount, customer_code, order_description)
             VALUES (1, 1000.00, 600.00, 13, 'SOD'),
                    (2, 3000.00, 500.00, 19, 'SOD'),
                    (3, 4500.00, 900.00, 7, 'SOD'),
@@ -62,13 +62,13 @@ INSERT INTO ORDERS (ordnum, ordamount, advanceamount, custcode, orderdescription
                    (11, 1500.00, 600.00, 8, 'SOD'),
                    (12, 2500.00, 0.00, 25, 'SOD');
 
-INSERT INTO PAYMENTS (paymentid, type)
+INSERT INTO PAYMENTS (payment_id, type)
               VALUES (1, 'Cash'),
                      (2, 'Gift Card'),
                      (3, 'Credit Card'),
                      (4, 'Mobile Pay');
 
-INSERT INTO ORDERSPAYMENTS (ordnum, paymentid)
+INSERT INTO ORDERS_PAYMENTS (order_number, payment_id)
                     VALUES (1, 1),
                            (2, 2),
                            (3, 3),
