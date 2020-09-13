@@ -9,6 +9,7 @@ import java.util.Set;
 import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
 import org.springframework.stereotype.Service;
+import tech.gebel.javaorders.Utility;
 import tech.gebel.javaorders.models.Agent;
 import tech.gebel.javaorders.models.Customer;
 import tech.gebel.javaorders.models.Order;
@@ -86,12 +87,20 @@ public class CustomerServiceImplementation implements CustomerService {
     return customersRepository.save(newCustomer);
   }
 
-  @Transactional
-  @Override
-  public void save(Customer customer, long id) {
+  /**
+   * Check if a customer with the provided id exists
+   * @param id Id to check for
+   */
+  private void checkCustomerIdExists(long id) {
     if (!customersRepository.existsById(id)) throw new EntityNotFoundException(
       format("Customer with id %d not found", id)
     );
+  }
+
+  @Transactional
+  @Override
+  public void save(Customer customer, long id) {
+    checkCustomerIdExists(id);
     customer.setCustomerCode(id);
     save(customer);
   }
@@ -99,9 +108,7 @@ public class CustomerServiceImplementation implements CustomerService {
   @Transactional
   @Override
   public void update(Customer customer, long id) {
-    if (!customersRepository.existsById(id)) throw new EntityNotFoundException(
-      format("Customer with id %d not found", id)
-    );
+    checkCustomerIdExists(id);
 
     Customer originalCustomer = customersRepository
       .findById(id)
@@ -129,14 +136,7 @@ public class CustomerServiceImplementation implements CustomerService {
   @Transactional
   @Override
   public void deleteCustomerById(long id) {
-    Customer customer = customersRepository
-      .findById(id)
-      .orElseThrow(
-        () ->
-          new EntityNotFoundException(
-            format("No Customer found with ID %d", id)
-          )
-      );
+    Customer customer = findCustomerById(id);
     customersRepository.delete(customer);
   }
 }

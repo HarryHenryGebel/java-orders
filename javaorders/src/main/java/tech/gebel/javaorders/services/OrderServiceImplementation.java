@@ -2,15 +2,12 @@ package tech.gebel.javaorders.services;
 
 import static java.lang.String.format;
 
-import java.util.HashSet;
-import java.util.Set;
 import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
 import org.springframework.stereotype.Service;
 import tech.gebel.javaorders.Utility;
 import tech.gebel.javaorders.models.Customer;
 import tech.gebel.javaorders.models.Order;
-import tech.gebel.javaorders.models.Payment;
 import tech.gebel.javaorders.repositories.CustomersRepository;
 import tech.gebel.javaorders.repositories.OrdersRepository;
 import tech.gebel.javaorders.repositories.PaymentsRepository;
@@ -75,35 +72,7 @@ public class OrderServiceImplementation implements OrderService {
   @Transactional
   @Override
   public void deleteOrderById(long id) {
-    Order order = ordersRepository
-      .findById(id)
-      .orElseThrow(
-        () ->
-          new EntityNotFoundException(format("No Order found with ID %d", id))
-      );
+    Order order = findOrderById(id);
     ordersRepository.delete(order);
-  }
-
-  static void makeOrder(
-    Order order,
-    Order newOrder,
-    Customer customer,
-    PaymentsRepository paymentsRepository
-  ) {
-    newOrder.setCustomer(customer);
-
-    Set<Payment> payments = new HashSet<>();
-    for (Payment payment : order.getPayments()) {
-      Payment newPayment = paymentsRepository
-        .findById(payment.getPaymentId())
-        .orElseThrow(
-          () ->
-            new EntityNotFoundException(
-              format("Payment with id %d not found", payment.getPaymentId())
-            )
-        );
-      payments.add(newPayment);
-    }
-    newOrder.setPayments(payments);
   }
 }
