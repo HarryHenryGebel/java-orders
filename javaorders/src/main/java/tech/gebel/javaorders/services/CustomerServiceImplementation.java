@@ -93,17 +93,17 @@ public class CustomerServiceImplementation implements CustomerService {
 
   @Transactional
   @Override
-  public Customer save(Customer customer, long id) {
+  public void save(Customer customer, long id) {
     if (!customersRepository.existsById(id)) throw new EntityNotFoundException(
       format("Customer with id %d not found", id)
     );
     customer.setCustomerCode(id);
-    return save(customer);
+    save(customer);
   }
 
   @Transactional
   @Override
-  public Customer update(Customer customer, long id) {
+  public void update(Customer customer, long id) {
     if (!customersRepository.existsById(id)) throw new EntityNotFoundException(
       format("Customer with id %d not found", id)
     );
@@ -128,7 +128,7 @@ public class CustomerServiceImplementation implements CustomerService {
       originalCustomer.getOrders().clear();
       originalCustomer.getOrders().addAll(customer.getOrders());
     }
-    return save(originalCustomer);
+    save(originalCustomer);
   }
 
   @Transactional
